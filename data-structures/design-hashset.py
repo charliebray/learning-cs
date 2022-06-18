@@ -1,5 +1,8 @@
 class MyHashSet:
-
+    '''
+    Designing a HashSet
+    '''
+    
     def __init__(self):
         self.size = 10**4
         self.table = [None] * self.size

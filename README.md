@@ -1,9 +1,9 @@
-LeetCode, Code, Code.
+Code, code, code.
 ============================
 
-Code created on LeetCode is stored here.
+All code written whilst learning about CS fundamentals is stored here.
 
 ### Tree Directory
     .
-    ├── data-structures     # Explore - Introduction to Data Structure
+    ├── leetcode     # LeetCode stuff
     └── README.md

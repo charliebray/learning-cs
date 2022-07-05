@@ -37,7 +37,7 @@ class BinaryGate(LogicGate):
             if self.pin_b == None:
                 self.pin_b = source 
             else:
-                raise RuntimeError('Error: NO EMPTY PINS on this gate')
+                raise RuntimeError(f'Error: NO EMPTY PINS on the gate {self.get_label()}')
 
 class AndGate(BinaryGate):
 
@@ -91,6 +91,19 @@ class NorGate(BinaryGate):
         else:
             return 1
 
+class XorGate(BinaryGate):
+
+    def __init__(self, lbl) -> None:
+        BinaryGate.__init__(self, lbl)
+
+    def perform_gate_logic(self):
+        a = self.get_pin_a()
+        b = self.get_pin_b()
+        if a != b:
+            return 1
+        else:
+            return 0
+
 class UnaryGate(LogicGate):
 
     def __init__(self, lbl) -> None:
@@ -107,7 +120,7 @@ class UnaryGate(LogicGate):
         if self.pin == None:
             self.pin = source
         else:
-            raise RuntimeError('Error: NO EMPTY PINS on this gate')
+            raise RuntimeError(f'Error: NO EMPTY PINS on the gate {self.get_label()}')
 
 class NotGate(UnaryGate):
 
@@ -136,11 +149,10 @@ class Connector:
         return self.to_gate
 
 def main():
-    g1 = AndGate("G1")
+    g1 = XorGate("G1")
     g2 = AndGate("G2")
-    g3 = NorGate("G3")
-    c1 = Connector(g1, g3)
-    c2 = Connector(g2, g3)
-    print(g3.get_output())
+    binary_sum = g1.get_output()
+    binary_carry = g2.get_output()
+    print(f'Sum: {binary_sum}, Carry: {binary_carry}')
 
 main()

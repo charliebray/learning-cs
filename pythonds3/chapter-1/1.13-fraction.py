@@ -1,8 +1,7 @@
-'''
-Define a Fraction class.
-'''
-
 class Fraction:
+    '''
+    Define a Fraction class.
+    '''
 
     def __init__(self, top, bottom) -> None:
 

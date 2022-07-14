@@ -1,4 +1,4 @@
 from .stack import *
 from .queue import *
-from .dequeue import *
+from .deque import *
 from .node import *

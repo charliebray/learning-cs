@@ -1,4 +1,4 @@
-class Dequeue:
+class Deque:
 
     def __init__(self):
         self._items = []

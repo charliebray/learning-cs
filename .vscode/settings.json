@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./pythonds3/chapter-4"
+    ]
+}

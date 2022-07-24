@@ -1,7 +1,12 @@
 Code. Code? Code!
 ============================
 
-All code written whilst learning about CS fundamentals is stored here.
+All code written whilst learning about Computer Science fundamentals is stored here. Below, we list out the different resources used
+ and the corresponding tree directory for this repository.
+ 
+### Books & Courses:
+- [PythonDS3](https://runestone.academy/ns/books/published/pythonds3/index.html)
+- [MIT 6.0001](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/syllabus/)
 
 ### Tree Directory
     .

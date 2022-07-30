@@ -10,13 +10,15 @@
 import math
 import random
 import string
+import os
+import sys
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
-    'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
+    '*': 0, 'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
 }
 
 # -----------------------------------
@@ -35,7 +37,7 @@ def load_words():
     
     print("Loading word list from file...")
     # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r')
+    inFile = open(os.path.join(sys.path[0], "words.txt"), "r")
     # wordlist: list of strings
     wordlist = []
     for line in inFile:
@@ -91,8 +93,22 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
+
+    # Convert to lower case and strip
+    word = word.lower().strip()
     
-    pass  # TO DO... Remove this line when you implement this function
+    # Calculate first component
+    first_component = 0
+    for char in word:
+        value = SCRABBLE_LETTER_VALUES[char]
+        first_component += value
+
+    # Calculate second component
+    second_component = 7*len(word) - 3*(n-len(word))
+    if second_component < 1:
+        second_component = 1
+
+    return first_component*second_component
 
 #
 # Make sure you understand how this function works and what it does!
@@ -134,7 +150,10 @@ def deal_hand(n):
     """
     
     hand={}
-    num_vowels = int(math.ceil(n / 3))
+    num_vowels = int(math.ceil(n / 3)) - 1
+
+    # Add a wildcard to hand
+    hand['*'] = 1
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -167,8 +186,18 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
+    new_hand = hand.copy()
+    word = word.strip().lower()
+    for char in word:
+        # If the letter in the word is not in hand, then ignore.
+        if char not in new_hand:
+            continue
+        # Subtract from the hand otherwise
+        new_hand[char] -= 1
+        if new_hand[char] == 0:
+            del(new_hand[char])
 
-    pass  # TO DO... Remove this line when you implement this function
+    return new_hand
 
 #
 # Problem #3: Test word validity
@@ -184,8 +213,31 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
+    word = word.strip().lower()
+    new_hand = hand.copy()
 
-    pass  # TO DO... Remove this line when you implement this function
+    if '*' in word:
+        word_bool = False
+        for vowel in VOWELS:
+            potential_word = vowel.join(word.split('*'))
+            if potential_word in word_list:
+                word_bool = True
+                break
+    else:
+        word_bool = word in word_list
+
+    if word_bool == True:
+        for char in word:
+            if char in new_hand:
+                new_hand[char] -= 1
+                if new_hand[char] == 0:
+                    del(new_hand[char])
+                continue
+            return False
+    else:
+        return False
+    
+    return True
 
 #
 # Problem #5: Playing a hand
@@ -198,7 +250,7 @@ def calculate_handlen(hand):
     returns: integer
     """
     
-    pass  # TO DO... Remove this line when you implement this function
+    return sum(list(hand.values()))
 
 def play_hand(hand, word_list):
 

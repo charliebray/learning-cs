@@ -11,6 +11,19 @@ class HashTable:
     def __setitem__(self, key, value):
         self.put(key, value)
 
+    def __len__(self):
+        counter = 0
+        for index in range(0, self.size):
+            if self.slots[index] != None:
+                counter += 1
+        return counter
+
+    def __contains__(self, key):
+        for another_key in self.slots:
+            if key == another_key:
+                return True
+        return False
+
     def put(self, key, value):
         hash_index = self.hash_function(key)
 
@@ -60,8 +73,7 @@ def main():
     hashtable[0] = 'zero'
     hashtable[1] = 'one'
     hashtable[2] = 'two'
-    hashtable[3] = 'three'
-    print(hashtable.get(4))
+    print(0 in hashtable)
 
 if __name__ == '__main__':
     main()

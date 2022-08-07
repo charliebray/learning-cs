@@ -13,6 +13,7 @@ All code written whilst learning about Computer Science fundamentals is stored h
     ├── leetcode            # LeetCode exercises/problems
     ├── mit-ocw             # Contains solutions to MIT OCW problem sets
     │   ├── 6.0001              # MIT 6.0001 Introduction to Computer Science and Programming
+    │   ├── 6.006               # MIT 6.006  Introduction to Algorithms
     ├── pythonds3           # Pythonds3 stuff
     │   ├── chapter-1           # Chapter 1. Introduction
     │   ├── chapter-3           # Chapter 3. Analysis

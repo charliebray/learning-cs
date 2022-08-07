@@ -10,7 +10,7 @@ All code written whilst learning about Computer Science fundamentals is stored h
 
 ### Tree Directory
     .
-    ├── leetcode            # LeetCode exercises/problems
+    ├── leetcode            # LeetCode solutions
     ├── mit-ocw             # Contains solutions to MIT OCW problem sets
     │   ├── 6.0001              # MIT 6.0001 Introduction to Computer Science and Programming
     │   ├── 6.006               # MIT 6.006  Introduction to Algorithms

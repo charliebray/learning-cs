@@ -3,6 +3,7 @@
 # Collaborators:
 # Time:
 
+from fileinput import filename
 import feedparser
 import string
 import time
@@ -11,6 +12,8 @@ from project_util import translate_html
 from mtTkinter import *
 from datetime import datetime
 import pytz
+import os
+import sys
 
 
 #-----------------------------------------------------------------------
@@ -55,6 +58,29 @@ def process(url):
 # Problem 1
 
 # TODO: NewsStory
+class NewsStory:
+
+    def __init__(self, guid, title, description, link, pubdate):
+        self.guid = guid
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubdate = pubdate
+
+    def get_guid(self):
+        return self.guid
+    
+    def get_title(self):
+        return self.title
+
+    def get_description(self):
+        return self.description
+
+    def get_link(self):
+        return self.link
+
+    def get_pubdate(self):
+        return self.pubdate
 
 
 #======================
@@ -74,12 +100,41 @@ class Trigger(object):
 
 # Problem 2
 # TODO: PhraseTrigger
+class PhraseTrigger(Trigger):
+
+    def __init__(self, phrase):
+        self.phrase = phrase
+
+    def is_phrase_in(self, text):
+        import re
+        phrase_list = self.phrase.lower().split(' ')
+        text_list = [word.strip(string.punctuation + ' ').lower() for word in re.findall(r"[\w']+|[.,!?;]", text)]
+        text_list = [word for word in text_list if word != '']
+        if phrase_list[0] in text_list:
+            index = text_list.index(phrase_list[0])
+            if phrase_list == text_list[index:len(phrase_list)+index]:
+                return True
+        return False
 
 # Problem 3
 # TODO: TitleTrigger
+class TitleTrigger(PhraseTrigger):
+
+    def __init__(self, phrase):
+        self.phrase = phrase
+
+    def evaluate(self, story):
+        return self.is_phrase_in(story.get_title())
 
 # Problem 4
 # TODO: DescriptionTrigger
+class DescriptionTrigger(PhraseTrigger):
+
+    def __init__(self, phrase):
+        self.phrase = phrase
+
+    def evaluate(self, story):
+        return self.is_phrase_in(story.get_description())
 
 # TIME TRIGGERS
 
@@ -88,21 +143,58 @@ class Trigger(object):
 # Constructor:
 #        Input: Time has to be in EST and in the format of "%d %b %Y %H:%M:%S".
 #        Convert time from string to a datetime before saving it as an attribute.
+class TimeTrigger(Trigger):
+
+    def __init__(self, time_str):
+        self.time = datetime.strptime(time_str, '%d %b %Y %H:%M:%S')
 
 # Problem 6
 # TODO: BeforeTrigger and AfterTrigger
+class BeforeTrigger(TimeTrigger):
+
+    def evaluate(self, story):
+        return story.get_pubdate() < self.time
+
+class AfterTrigger(TimeTrigger):
+
+    def evaluate(self, story):
+        return story.get_pubdate() > self.time
 
 
 # COMPOSITE TRIGGERS
 
 # Problem 7
 # TODO: NotTrigger
+class NotTrigger(Trigger):
+
+    def __init__(self, trigger):
+        self.trigger = trigger
+
+    def evaluate(self, story):
+        return not self.trigger.evaluate(story)
+
 
 # Problem 8
 # TODO: AndTrigger
+class AndTrigger(Trigger):
+
+    def __init__(self, trigger_1, trigger_2):
+        self.trigger_1 = trigger_1
+        self.trigger_2 = trigger_2
+
+    def evaluate(self, story):
+        return (self.trigger_1.evaluate(story) and self.trigger_2.evaluate(story))
 
 # Problem 9
 # TODO: OrTrigger
+class OrTrigger(Trigger):
+
+    def __init__(self, trigger_1, trigger_2):
+        self.trigger_1 = trigger_1
+        self.trigger_2 = trigger_2
+
+    def evaluate(self, story):
+        return (self.trigger_1.evaluate(story) or self.trigger_2.evaluate(story))
 
 
 #======================
@@ -119,8 +211,12 @@ def filter_stories(stories, triggerlist):
     # TODO: Problem 10
     # This is a placeholder
     # (we're just returning all the stories, with no filtering)
-    return stories
-
+    story_list = list()
+    for story in stories:
+        for trigger in triggerlist:
+            if trigger.evaluate(story) == True:
+                story_list.append(story)
+    return story_list
 
 
 #======================
@@ -136,7 +232,7 @@ def read_trigger_config(filename):
     """
     # We give you the code to read in the file and eliminate blank lines and
     # comments. You don't need to know how it works for now!
-    trigger_file = open(filename, 'r')
+    trigger_file = open(os.path.join(sys.path[0], filename), "r")
     lines = []
     for line in trigger_file:
         line = line.rstrip()
@@ -148,8 +244,6 @@ def read_trigger_config(filename):
     # to build triggers
 
     print(lines) # for now, print it so you see what it contains!
-
-
 
 SLEEPTIME = 120 #seconds -- how often we poll
 

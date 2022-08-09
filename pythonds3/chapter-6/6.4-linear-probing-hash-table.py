@@ -84,7 +84,7 @@ def main():
     print(hashtable)
     hashtable[5] = 'five'
     print(hashtable.slots)
-    print(Hashtable.data)
+    print(hashtable.data)
     print(hashtable[2])
     print(hashtable[5])
 

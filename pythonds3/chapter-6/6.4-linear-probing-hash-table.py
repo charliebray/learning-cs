@@ -5,6 +5,9 @@ class HashTable:
         self.slots = [None] * self.size 
         self.data = [None] * self.size 
 
+    def __str__(self):
+        return str(self.data)
+
     def __getitem__(self, key):
         return self.get(key)
 
@@ -23,6 +26,12 @@ class HashTable:
             if key == another_key:
                 return True
         return False
+
+    def __delitem__(self, key):
+        self.data[self.hash_function(key)] = None
+
+    def get_size(self):
+        return self.size
 
     def put(self, key, value):
         hash_index = self.hash_function(key)
@@ -70,10 +79,14 @@ class HashTable:
 
 def main():
     hashtable = HashTable()
-    hashtable[0] = 'zero'
-    hashtable[1] = 'one'
+    print(hashtable)
     hashtable[2] = 'two'
-    print(0 in hashtable)
+    print(hashtable)
+    hashtable[5] = 'five'
+    print(hashtable.slots)
+    print(Hashtable.data)
+    print(hashtable[2])
+    print(hashtable[5])
 
 if __name__ == '__main__':
     main()

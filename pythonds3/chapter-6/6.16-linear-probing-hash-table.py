@@ -28,7 +28,12 @@ class HashTable:
         return False
 
     def __delitem__(self, key):
-        self.data[self.hash_function(key)] = None
+        next_hash_index = self.hash_function(key)
+        while self.slots[next_hash_index] != key:
+            next_hash_index = self.hash_function(next_hash_index + 1)
+
+        self.slots[next_hash_index] = None
+        self.data[next_hash_index] = None
 
     def get_size(self):
         return self.size
@@ -85,8 +90,9 @@ def main():
     hashtable[5] = 'five'
     print(hashtable.slots)
     print(hashtable.data)
-    print(hashtable[2])
-    print(hashtable[5])
+    del hashtable[2]
+    print(hashtable.slots)
+    print(hashtable.data)
 
 if __name__ == '__main__':
     main()

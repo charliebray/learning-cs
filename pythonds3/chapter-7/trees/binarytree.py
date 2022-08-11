@@ -32,14 +32,3 @@ class BinaryTree:
 
     def get_right_child(self):
         return self.right_child
-
-def main():
-    binarytree = BinaryTree("a")
-    binarytree.insert_left("b")
-    binarytree.insert_right("c")
-    binarytree.get_left_child().insert_right("d")
-    binarytree.get_right_child().insert_left("e")
-    binarytree.get_right_child().insert_right("f")
-
-if __name__ == '__main__':
-    main()

@@ -1,7 +1,7 @@
 import os
 import sys
-sys.path.insert(0, 'pythonds3/chapter-4/')
 
+sys.path.insert(0, 'pythonds3/chapter-4/')
 from basic import *
 
 def move_tower(height, from_stack, to_stack, with_stack):

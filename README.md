@@ -20,5 +20,6 @@ All code written whilst learning about Computer Science fundamentals is stored h
     │   ├── chapter-4           # Chapter 4. Basic Data Structures
     │   ├── chapter-5           # Chapter 5. Recursion
     │   ├── chapter-6           # Chapter 6. Sorting & Searching
+    │   ├── chapter-7           # Chapter 7. Trees & Tree Algorithms
     ├── resources           # Learning resources
     └── README.md

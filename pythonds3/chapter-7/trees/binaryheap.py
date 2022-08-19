@@ -76,9 +76,6 @@ class BinaryHeap:
 
 if __name__ == '__main__':
     binaryheap = BinaryHeap()
-    binaryheap.insert(1)
-    binaryheap.insert(2)
-    binaryheap.insert(3)
-    binaryheap.insert(0)
-    binaryheap.delete()
+    a_list = [3,5,2,10,8,1,4,7,6,9]
+    binaryheap.heapify(a_list)
     print(binaryheap._heap)

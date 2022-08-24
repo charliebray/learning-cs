@@ -204,23 +204,24 @@ class BinarySearchTree:
         self.delete(key)
 
 
-my_tree = BinarySearchTree()
-my_tree["a"] = "a"
-my_tree["q"] = "quick"
-my_tree["b"] = "brown"
-my_tree["f"] = "fox"
-my_tree["j"] = "jumps"
-my_tree["o"] = "over"
-my_tree["t"] = "the"
-my_tree["l"] = "lazy"
-my_tree["d"] = "dog"
+if __name__ == '__main__':
+    my_tree = BinarySearchTree()
+    my_tree["a"] = "a"
+    my_tree["q"] = "quick"
+    my_tree["b"] = "brown"
+    my_tree["f"] = "fox"
+    my_tree["j"] = "jumps"
+    my_tree["o"] = "over"
+    my_tree["t"] = "the"
+    my_tree["l"] = "lazy"
+    my_tree["d"] = "dog"
 
-print(my_tree["q"])
-print(my_tree["l"])
-print("There are {} items in this tree".format(len(my_tree)))
-my_tree.delete("a")
-print("There are {} items in this tree".format(len(my_tree)))
+    print(my_tree["q"])
+    print(my_tree["l"])
+    print("There are {} items in this tree".format(len(my_tree)))
+    my_tree.delete("a")
+    print("There are {} items in this tree".format(len(my_tree)))
 
-for node in my_tree:
-    print(my_tree[node], end=" ")
-print()
+    for node in my_tree:
+        print(my_tree[node], end=" ")
+    print()

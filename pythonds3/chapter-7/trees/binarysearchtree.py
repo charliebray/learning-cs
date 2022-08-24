@@ -104,7 +104,11 @@ class BinarySearchTree:
         self.size = self.size + 1
 
     def _put(self, key, value, current_node):
-        if key < current_node.key:
+        if key == current_node.key:
+            current_node.value = value
+            self.size = self.size - 1
+
+        elif key < current_node.key:
             if current_node.left_child:
                 self._put(key, value, current_node.left_child)
             else:
@@ -218,8 +222,6 @@ if __name__ == '__main__':
 
     print(my_tree["q"])
     print(my_tree["l"])
-    print("There are {} items in this tree".format(len(my_tree)))
-    my_tree.delete("a")
     print("There are {} items in this tree".format(len(my_tree)))
 
     for node in my_tree:

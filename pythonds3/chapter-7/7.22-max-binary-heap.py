@@ -79,9 +79,7 @@ class BinaryHeap:
         return not bool(self._heap)
     
 if __name__ == '__main__':
-    binaryheap = BinaryHeap(5)
+    binaryheap = BinaryHeap(100)
     a_list = [1,2,3,4,5,6,7]
     binaryheap.heapify(a_list)
-    print(binaryheap._heap)
-    binaryheap.delete()
-    print(binaryheap._heap)
+    print(binaryheap)

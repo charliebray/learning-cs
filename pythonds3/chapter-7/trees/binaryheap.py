@@ -72,10 +72,23 @@ class BinaryHeap:
     def __str__(self):
         return str(self._heap)
     
+def heap_sort(unsorted_list):
+    '''
+    unsorted_list (list): an unsorted list of integers or floats
 
+    Description: 
+        * Takes a list and converts to a heap using heapify (linear time),
+        then loops through the list n times deleting each time (log-linear time).
+
+    Returns (list): the original list sorted in ascending order.
+    '''
+    binaryheap = BinaryHeap()
+    binaryheap.heapify(unsorted_list)
+    temp_list = []
+    while len(binaryheap) > 0:
+        temp_list.append(binaryheap.delete())
+    return temp_list
 
 if __name__ == '__main__':
-    binaryheap = BinaryHeap()
-    a_list = [3,5,2,10,8,1,4,7,6,9]
-    binaryheap.heapify(a_list)
-    print(binaryheap._heap)
+    unsorted_list = [3,5,2,10,8,1,4,7,6,9]
+    print(heap_sort(unsorted_list))

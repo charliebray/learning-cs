@@ -1,7 +1,8 @@
 class BinaryHeap:
 
-    def __init__(self):
+    def __init__(self, n):
         self._heap = []
+        self.max_size = n
 
     def __str__(self):
         return str(self._heap)
@@ -24,6 +25,9 @@ class BinaryHeap:
         self._heap.append(item)
         # Swap with parent until less than new parent
         self._perc_up(len(self._heap) - 1)
+        # If larger than max length, pop last item
+        if len(self._heap) > self.max_size:
+            self._heap.pop()
 
     def _max_child_index(self, current_index):
         # Get indices of both children
@@ -65,6 +69,8 @@ class BinaryHeap:
         while current_index >= 0:
             self._perc_down(current_index)
             current_index = current_index - 1
+        # Take only up to max length
+        self._heap = self._heap[:self.max_size]
 
     def get_max(self):
         return self._heap[0]
@@ -73,8 +79,8 @@ class BinaryHeap:
         return not bool(self._heap)
     
 if __name__ == '__main__':
-    binaryheap = BinaryHeap()
-    a_list = [3,5,2,10,8,1,4,7,6,9]
+    binaryheap = BinaryHeap(5)
+    a_list = [1,2,3,4,5,6,7]
     binaryheap.heapify(a_list)
     print(binaryheap._heap)
     binaryheap.delete()

@@ -8,7 +8,7 @@ class Vertex:
         return f'Vertex({self.key})'
 
     def __str__(self):
-        return f'{self.key} connected to: {self.neighbors.keys()}'
+        return f'{self.key} connected to: {list(self.neighbors.keys())}'
 
     def get_neighbor(self, other):
         return self.neighbors.get(other, None)

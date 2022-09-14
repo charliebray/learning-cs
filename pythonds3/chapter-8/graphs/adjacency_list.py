@@ -3,6 +3,9 @@ class Vertex:
     def __init__(self, key):
         self.key = key
         self.neighbors = dict()
+        self._color = "white"
+        self._distance = 0
+        self._previous = None
 
     def __repr__(self):
         return f'Vertex({self.key})'
@@ -22,6 +25,23 @@ class Vertex:
     def get_key(self):
         return self.key
 
+    def get_color(self):
+        return self._color
+
+    def set_color(self, color):
+        self._color = color
+
+    def get_distance(self):
+        return self._distance
+
+    def set_distance(self, distance):
+        self._distance = distance
+
+    def get_previous(self):
+        return self._previous
+
+    def set_previous(self, vertex):
+        self._previous = vertex
 class Graph:
 
     def __init__(self):

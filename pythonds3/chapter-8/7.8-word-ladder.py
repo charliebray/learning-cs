@@ -20,8 +20,6 @@ def build_graph(word_list):
                 the_graph.add_edge(word_1, word_2)
 
     return the_graph
-    
-
 
 def main():
     word_list = ['dog', 'cat', 'rat']
